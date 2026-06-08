@@ -1,6 +1,7 @@
 from edge.device_controller import collect_sensor_data
 from edge.health_monitor import evaluate_health
 from edge.alert_manager import display_alerts
+from edge.logger import log_sensor_data
 
 
 def main():
@@ -8,6 +9,7 @@ def main():
     data = collect_sensor_data()
 
     status, alerts = evaluate_health(data)
+    log_sensor_data(data, status)
 
     print("\nIndustrial IoT Edge Node")
     print("-" * 30)
