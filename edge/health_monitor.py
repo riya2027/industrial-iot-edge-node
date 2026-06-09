@@ -1,30 +1,25 @@
-from config.settings import (
-    TEMP_WARNING,
-    TEMP_CRITICAL,
-    VIBRATION_WARNING,
-    VIBRATION_CRITICAL,
-    PRESSURE_WARNING,
-    PRESSURE_CRITICAL
-)
+from config.threshold_loader import load_thresholds
 
 
 def evaluate_health(data):
 
+    thresholds = load_thresholds()
+
     alerts = []
 
-    if data["temperature"] >= TEMP_CRITICAL:
+    if data["temperature"] >= thresholds["temp_critical"]:
         alerts.append("CRITICAL_TEMPERATURE")
-    elif data["temperature"] >= TEMP_WARNING:
+    elif data["temperature"] >= thresholds["temp_warning"]:
         alerts.append("HIGH_TEMPERATURE")
 
-    if data["vibration"] >= VIBRATION_CRITICAL:
+    if data["vibration"] >= thresholds["vibration_critical"]:
         alerts.append("CRITICAL_VIBRATION")
-    elif data["vibration"] >= VIBRATION_WARNING:
+    elif data["vibration"] >= thresholds["vibration_warning"]:
         alerts.append("HIGH_VIBRATION")
 
-    if data["pressure"] <= PRESSURE_CRITICAL:
+    if data["pressure"] <= thresholds["pressure_critical"]:
         alerts.append("CRITICAL_PRESSURE")
-    elif data["pressure"] <= PRESSURE_WARNING:
+    elif data["pressure"] <= thresholds["pressure_warning"]:
         alerts.append("LOW_PRESSURE")
 
     if any(alert.startswith("CRITICAL") for alert in alerts):
