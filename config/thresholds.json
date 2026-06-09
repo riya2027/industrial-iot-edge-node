@@ -1,0 +1,8 @@
+{
+  "temp_warning": 70,
+  "temp_critical": 85,
+  "vibration_warning": 5,
+  "vibration_critical": 8,
+  "pressure_warning": 3,
+  "pressure_critical": 2
+}
